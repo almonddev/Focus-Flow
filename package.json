@@ -1,0 +1,12 @@
+{
+  "name": "focusflow-landing",
+  "version": "1.0.0",
+  "description": "FocusFlow landing page with email capture",
+  "scripts": {
+    "dev": "vercel dev",
+    "build": "echo 'Static site - no build needed'"
+  },
+  "dependencies": {
+    "googleapis": "^126.0.1"
+  }
+}
