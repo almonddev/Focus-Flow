@@ -865,7 +865,8 @@
             "I realized I was spending hours on my phone daily while telling
             people I 'barely use social media.' The shame was real, but not
             enough to change. Only when I started sharing my screen time with my
-            accountability partner did I actually reduce it in a meaningful way."
+            accountability partner did I actually reduce it in a meaningful
+            way."
           </p>
           <div style="color: #fff; font-weight: 600">— The FocusFlow Team</div>
         </div>
@@ -918,29 +919,23 @@
           submitButton.textContent = "Joining...";
           submitButton.disabled = true;
 
+          // Replace the try block in your form handler with:
           try {
-            // Replace with your email capture endpoint
-            // Example: await fetch('/api/signup', { method: 'POST', body: JSON.stringify({ email }) });
-            console.log("Email submitted:", email);
+            const response = await fetch("/api/signup", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ email: email }),
+            });
 
-            // Simulate API call
-            await new Promise((resolve) => setTimeout(resolve, 800));
-
-            // Show success
-            successMessage.classList.add("show");
-            this.reset();
-
-            // Track conversion (add your analytics)
-            if (typeof gtag !== "undefined") {
-              gtag("event", "conversion", {
-                send_to: "AW-CONVERSION_ID/CONVERSION_LABEL",
-              });
+            if (response.ok) {
+              // Show success
+              successMessage.classList.add("show");
+              this.reset();
+            } else {
+              throw new Error("Signup failed");
             }
-
-            // Hide success message after 5 seconds
-            setTimeout(() => {
-              successMessage.classList.remove("show");
-            }, 5000);
           } catch (error) {
             alert("Something went wrong. Please try again.");
           } finally {
