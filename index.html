@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="FocusFlow - Social accountability app to reduce screen time. Share your usage with friends and reclaim your focus together.">
+    <meta name="keywords" content="screen time, productivity, accountability, focus app">
+    <meta property="og:title" content="FocusFlow - Elite Productivity Accountability">
+    <meta property="og:description" content="Your friends don't know you spent 8 hours on TikTok yesterday. Join the productivity accountability revolution.">
+    <meta property="og:image" content="https://via.placeholder.com/1200x630/6366f1/ffffff?text=FocusFlow">
+    <meta property="og:url" content="https://focusflow.vercel.app">
+    <title>FocusFlow - Elite Productivity Accountability</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #000;
+            color: #fff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        .header {
+            padding: 20px 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-links a {
+            color: #9ca3af;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: #fff;
+        }
+        
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: radial-gradient(ellipse at center, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+            position: relative;
+        }
+        
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        
+        .hero-text h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            background: linear-gradient(135deg, #fff 0%, #9ca3af 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-text .highlight {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-text p {
+            font-size: 1.25rem;
+            color: #9ca3af;
+            margin-bottom: 32px;
+            font-weight: 400;
+        }
+        
+        .email-form {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        
+        .email-input {
+            flex: 1;
+            padding: 16px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: #fff;
+            font-size: 16px;
+            font-family: inherit;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        
+        .email-input:focus {
+            border-color: #6366f1;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+        
+        .email-input::placeholder {
+            color: #6b7280;
+        }
+        
+        .cta-button {
+            padding: 16px 32px;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            border: none;
+            border-radius: 12px;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+        }
+        
+        .social-proof {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #6b7280;
+            font-size: 14px;
+        }
+        
+        .avatars {
+            display: flex;
+            margin-left: -8px;
+        }
+        
+        .avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6, #06b6d4);
+            border: 2px solid #000;
+            margin-left: -8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        /* Phone Mockup */
+        .phone-mockup {
+            position: relative;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+        
+        .phone-frame {
+            width: 280px;
+            height: 580px;
+            background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+            border-radius: 40px;
+            padding: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+        
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            border-radius: 24px;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .app-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        
+        .app-logo {
+            font-size: 20px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .screen-time-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .screen-time-number {
+            font-size: 36px;
+            font-weight: 800;
+            color: #ef4444;
+            text-align: center;
+            margin-bottom: 8px;
+            font-family: 'Monaco', monospace;
+        }
+        
+        .screen-time-label {
+            text-align: center;
+            color: #9ca3af;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .friends-list {
+            space-y: 12px;
+        }
+        
+        .friend-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            margin-bottom: 8px;
+        }
+        
+        .friend-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .friend-avatar {
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 600;
+        }
+        
+        .friend-name {
+            font-size: 12px;
+            color: #fff;
+        }
+        
+        .friend-time {
+            font-size: 12px;
+            font-weight: 600;
+            color: #10b981;
+            font-family: 'Monaco', monospace;
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 120px 0;
+            background: radial-gradient(ellipse at center, rgba(139, 92, 246, 0.05) 0%, transparent 70%);
+        }
+        
+        .features h2 {
+            text-align: center;
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 60px;
+            background: linear-gradient(135deg, #fff 0%, #9ca3af 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+        
+        .feature-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 32px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(99, 102, 241, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .feature-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+            display: block;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #fff;
+        }
+        
+        .feature-card p {
+            color: #9ca3af;
+            line-height: 1.6;
+        }
+        
+        /* Stats Section */
+        .stats {
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+        }
+        
+        .stat-item {
+            padding: 20px;
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+            margin-bottom: 8px;
+        }
+        
+        .stat-label {
+            color: #9ca3af;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+        
+        /* CTA Section */
+        .final-cta {
+            padding: 120px 0;
+            text-align: center;
+            background: radial-gradient(ellipse at center, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+        }
+        
+        .final-cta h2 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 24px;
+            background: linear-gradient(135deg, #fff 0%, #9ca3af 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .final-cta p {
+            font-size: 1.25rem;
+            color: #9ca3af;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Footer */
+        .footer {
+            padding: 40px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            color: #6b7280;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+            
+            .email-form {
+                flex-direction: column;
+            }
+            
+            .features h2,
+            .final-cta h2 {
+                font-size: 2rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+        }
+        
+        /* Success Message */
+        .success-message {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 16px 24px;
+            border-radius: 12px;
+            margin-top: 16px;
+            display: none;
+        }
+        
+        .success-message.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav container">
+            <div class="logo">FocusFlow</div>
+            <div class="nav-links">
+                <a href="#features">How It Works</a>
+                <a href="#about">About</a>
+                <a href="#signup">Early Access</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Your friends don't know you spent <span class="highlight">8 hours on TikTok</span> yesterday</h1>
+                    <p>Join the productivity accountability revolution. Share screen time with trusted friends and reclaim your focus together.</p>
+                    
+                    <form class="email-form" id="emailForm">
+                        <input 
+                            type="email" 
+                            class="email-input" 
+                            placeholder="Enter your email" 
+                            required 
+                            id="emailInput"
+                        >
+                        <button type="submit" class="cta-button">Get Early Access</button>
+                    </form>
+                    
+                    <div class="success-message" id="successMessage">
+                        🎉 Thanks! You're on the list. We'll notify you when FocusFlow launches.
+                    </div>
+                    
+                    <div class="social-proof">
+                        <span>🚀 Coming to iOS & Android in 2025</span>
+                    </div>
+                </div>
+                
+                <div class="phone-mockup">
+                    <div class="phone-frame">
+                        <div class="phone-screen">
+                            <div class="app-header">
+                                <div class="app-logo">FocusFlow</div>
+                            </div>
+                            
+                            <div class="screen-time-card">
+                                <div class="screen-time-number">8h 47m</div>
+                                <div class="screen-time-label">Today's Screen Time</div>
+                            </div>
+                            
+                            <div class="friends-list">
+                                <div class="friend-item">
+                                    <div class="friend-info">
+                                        <div class="friend-avatar">A</div>
+                                        <div class="friend-name">alex_codes</div>
+                                    </div>
+                                    <div class="friend-time">4h 5m</div>
+                                </div>
+                                <div class="friend-item">
+                                    <div class="friend-info">
+                                        <div class="friend-avatar">S</div>
+                                        <div class="friend-name">sarah_dev</div>
+                                    </div>
+                                    <div class="friend-time">7h 12m</div>
+                                </div>
+                                <div class="friend-item">
+                                    <div class="friend-info">
+                                        <div class="friend-avatar">M</div>
+                                        <div class="friend-name">mike_design</div>
+                                    </div>
+                                    <div class="friend-time">3h 28m</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Statement Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <h2>Why Social Accountability Works</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <span class="feature-icon">👥</span>
+                    <h3>The Problem</h3>
+                    <p>You tell yourself you'll use your phone less, but with no external accountability, old habits return within days. Sound familiar?</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🧠</span>
+                    <h3>The Psychology</h3>
+                    <p>Studies show people are 65% more likely to meet goals when they commit to another person. Social pressure is a powerful motivator.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">⚡</span>
+                    <h3>The Solution</h3>
+                    <p>Real-time visibility creates instant accountability. When friends can see your usage, you naturally make better choices.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2>How FocusFlow Works</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <span class="feature-icon">🎯</span>
+                    <h3>Real-Time Accountability</h3>
+                    <p>Your friends see your screen time instantly. No more hiding behind "I barely use my phone" while scrolling for hours.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">📊</span>
+                    <h3>Productivity Scoring</h3>
+                    <p>AI categorizes your apps into productive vs. distracting. Compete with friends on focus scores, not just time.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🏆</span>
+                    <h3>Focus Leaderboards</h3>
+                    <p>Climb the weekly focus rankings. Nothing motivates like healthy competition with your most productive friends.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🧠</span>
+                    <h3>Smart Insights</h3>
+                    <p>Discover your peak focus times, biggest distractions, and get personalized recommendations to optimize your day.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">⚡</span>
+                    <h3>Instant Notifications</h3>
+                    <p>Friends get notified when you exceed goals. The social pressure alone will transform your habits overnight.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🔒</span>
+                    <h3>Privacy Control</h3>
+                    <p>Choose exactly what to share with which friends. Work accountability with colleagues, personal goals with family.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof Section -->
+    <section class="stats" id="about">
+        <div class="container" style="text-align: center;">
+            <h2 style="font-size: 2.5rem; font-weight: 800; margin-bottom: 24px; background: linear-gradient(135deg, #fff 0%, #9ca3af 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Built by People Who Get It</h2>
+            <p style="font-size: 1.25rem; color: #9ca3af; max-width: 600px; margin: 0 auto 40px auto;">We're productivity-obsessed developers who were tired of lying to ourselves about our screen time. So we built the accountability tool we wished existed.</p>
+            
+            <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; padding: 40px; max-width: 600px; margin: 0 auto;">
+                <h3 style="color: #6366f1; margin-bottom: 16px;">Why We're Building This</h3>
+                <p style="color: #9ca3af; line-height: 1.6; margin-bottom: 20px;">"I realized I was spending 9+ hours on my phone daily while telling people I 'barely use social media.' The shame was real, but not enough to change. Only when I started sharing my screen time with my accountability partner did I actually reduce it by 70%."</p>
+                <div style="color: #fff; font-weight: 600;">— The FocusFlow Team</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="final-cta" id="signup">
+        <div class="container">
+            <h2>Ready to reclaim your focus?</h2>
+            <p>Join thousands of professionals using social accountability to build better digital habits. Coming to iOS & Android in 2025.</p>
+            
+            <form class="email-form" style="max-width: 400px; margin: 0 auto;">
+                <input 
+                    type="email" 
+                    class="email-input" 
+                    placeholder="Enter your email" 
+                    required
+                >
+                <button type="submit" class="cta-button">Join Waitlist</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 FocusFlow. Built for people serious about productivity.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Optimized email form handling with loading states
+        document.getElementById('emailForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('emailInput').value;
+            const submitButton = this.querySelector('.cta-button');
+            const successMessage = document.getElementById('successMessage');
+            
+            // Show loading state
+            const originalText = submitButton.textContent;
+            submitButton.textContent = 'Joining...';
+            submitButton.disabled = true;
+            
+            try {
+                // Replace with your email capture endpoint
+                // Example: await fetch('/api/signup', { method: 'POST', body: JSON.stringify({ email }) });
+                console.log('Email submitted:', email);
+                
+                // Simulate API call
+                await new Promise(resolve => setTimeout(resolve, 800));
+                
+                // Show success
+                successMessage.classList.add('show');
+                this.reset();
+                
+                // Track conversion (add your analytics)
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'conversion', {
+                        'send_to': 'AW-CONVERSION_ID/CONVERSION_LABEL'
+                    });
+                }
+                
+                // Hide success message after 5 seconds
+                setTimeout(() => {
+                    successMessage.classList.remove('show');
+                }, 5000);
+                
+            } catch (error) {
+                alert('Something went wrong. Please try again.');
+            } finally {
+                // Reset button
+                submitButton.textContent = originalText;
+                submitButton.disabled = false;
+            }
+        });
+
+        // Handle all email forms with loading states
+        document.querySelectorAll('.email-form').forEach(form => {
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                const email = this.querySelector('.email-input').value;
+                const button = this.querySelector('.cta-button');
+                
+                const originalText = button.textContent;
+                button.textContent = 'Joining...';
+                button.disabled = true;
+                
+                try {
+                    console.log('Email submitted:', email);
+                    await new Promise(resolve => setTimeout(resolve, 800));
+                    alert('🎉 Thanks! You\'re on the waitlist. We\'ll notify you when FocusFlow launches.');
+                    this.reset();
+                } finally {
+                    button.textContent = originalText;
+                    button.disabled = false;
+                }
+            });
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
